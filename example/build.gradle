@@ -1,0 +1,8 @@
+apply plugin: 'war'
+apply plugin: 'com.github.gmazzo.wsdl'
+
+task downloadWsdls(type: com.github.gmazzo.gradle.plugins.tasks.DownloadWSDLs) {
+    into file('src/main/wsdl')
+    from 'calculator', 'http://www.dneonline.com/calculator.asmx?wsdl'
+    from 'weather', 'https://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl'
+}

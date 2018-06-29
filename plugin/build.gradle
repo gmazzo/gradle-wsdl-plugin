@@ -1,0 +1,50 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven'
+    id 'com.gradle.plugin-publish' version '0.9.7'
+}
+
+apply from: '../buildShared.gradle'
+
+archivesBaseName = 'gradle-wsdl-plugin'
+
+def pluginId = 'com.github.gmazzo.wsdl'
+def repoName = 'gradle-wsdl-plugin'
+def repoDesc = 'A Gradle plugin for generate JAB-WS clients from given WSDL files and URLs.'
+def repoUrl = "https://github.com/gmazzo/$repoName"
+def repoTags = ['java', 'gradle', 'plugin', 'wsdl', 'jax-ws', 'webservice']
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = "gradle.plugin.gmazzo"
+    }
+}
+
+gradlePlugin {
+    plugins {
+        wsdl {
+            id = pluginId
+            implementationClass = 'com.github.gmazzo.gradle.plugins.WSDLPlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = repoUrl
+    vcsUrl = repoUrl
+    description = repoDesc
+    tags = repoTags
+
+    plugins {
+        apklib {
+            id = pluginId
+            displayName = 'Gradle WSDL Plugin'
+        }
+    }
+
+    mavenCoordinates {
+        groupId = project.group
+        artifactId = project.archivesBaseName
+    }
+}
