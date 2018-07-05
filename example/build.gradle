@@ -1,8 +1,13 @@
 apply plugin: 'war'
 apply plugin: 'com.github.gmazzo.wsdl'
 
-task downloadWsdls(type: com.github.gmazzo.gradle.plugins.tasks.DownloadWSDLs) {
+import com.github.gmazzo.gradle.plugins.tasks.DownloadWSDL
+
+task downloadWsdls(type: DownloadWSDL) { self ->
     into file('src/main/wsdl')
-    from 'calculator', 'http://www.dneonline.com/calculator.asmx?wsdl'
-    from 'weather', 'https://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl'
+    from 'http://www.dneonline.com/calculator.asmx?wsdl'
+    from 'https://www.ebi.ac.uk:443/europepmc/webservices/soap?wsdl'
+    from 'countries', 'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL'
+
+    wsImport.dependsOn self
 }

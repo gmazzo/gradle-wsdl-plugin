@@ -33,10 +33,10 @@ class WSDLPlugin implements Plugin<Project> {
 
             sourceSets.all { ss ->
                 def wsdl = ss.ext.wsdl = instantiator.newInstance(WSDLSourceSetExtension.class).with {
-                    src = fileTree("src/main/wsdl") {
+                    src = fileTree("src/${ss.name}/wsdl") {
                         include '**/*.wsdl'
                     }
-                    dest = file("$buildDir/generated/${ss.name}/java")
+                    dest = file("$buildDir/generated/jaxws/${ss.name}/java")
                     return it
                 }
 
