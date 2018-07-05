@@ -21,13 +21,13 @@ class WSDLPlugin implements Plugin<Project> {
             def extension = extensions.create('wsdl', WSDLPluginExtension.class)
 
             configurations {
-                jaxws
+                wsdl
             }
 
             afterEvaluate {
                 def val = extension.jaxwsToolsDependencies
                 if (val) {
-                    dependencies.add('jaxws', val)
+                    dependencies.add('wsdl', val)
                 }
             }
 
@@ -45,8 +45,8 @@ class WSDLPlugin implements Plugin<Project> {
                 def wsImport = tasks.<WsImport> create("wsImport$suffix", WsImport.class)
                 wsImport.with { self ->
                     onlyIf { !wsdl.src.empty }
-                    wsdls = wsdl.src
-                    outDir = wsdl.dest
+                    source = wsdl.src
+                    destDir = wsdl.dest
 
                     tasks[ss.compileJavaTaskName].dependsOn self
                 }

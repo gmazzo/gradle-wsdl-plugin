@@ -2,6 +2,7 @@ package com.github.gmazzo.gradle.plugins.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.FileTree
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -14,10 +15,13 @@ class WsImport extends DefaultTask {
     private final ExecActionFactory actionFactory
 
     @InputFiles
-    FileTree wsdls
+    FileTree source
+
+    @Input
+    List<String> extraArgs = []
 
     @OutputDirectory
-    File outDir
+    File destDir
 
     @Inject
     WsImport(ExecActionFactory actionFactory) {
@@ -26,7 +30,7 @@ class WsImport extends DefaultTask {
 
     @TaskAction
     void process() {
-        wsdls.each { processFile(it) }
+        source.each { processFile(it) }
     }
 
     void processFile(File file) {
@@ -35,11 +39,11 @@ class WsImport extends DefaultTask {
         action.main = 'com.sun.tools.ws.WsImport'
         action.args = [
                 file.absolutePath,
-                '-s', outDir.absolutePath,
+                '-s', destDir.absolutePath,
                 '-extension',
                 '-Xnocompile',
-                logger.isDebugEnabled() ? '-Xdebug' : '-quiet']
-        action.workingDir = outDir
+                logger.isDebugEnabled() ? '-Xdebug' : '-quiet'] + extraArgs
+        action.workingDir = destDir
         action.execute().rethrowFailure()
     }
 
