@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:tns="http://www.scholix.org" xmlns:ns1="https://www.europepmc.org/data" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.scholix.org" version="1.0">
+  <xs:import schemaLocation="https://www.ebi.ac.uk:443/europepmc/webservices/soap?xsd=1" namespace="https://www.europepmc.org/data"/>
+  <xs:element name="Name" type="xs:string"/>
+  <xs:complexType name="Linklist">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="Link" maxOccurs="unbounded" type="tns:Link"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Link">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="ObtainedBy" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="PublicationDate" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="LinkProvider" type="tns:linkProvider"/>
+      <xs:element form="qualified" minOccurs="0" name="RelationshipType" type="tns:RelationshipType"/>
+      <xs:element form="qualified" minOccurs="0" name="Source" type="tns:dataLinkedElement"/>
+      <xs:element form="qualified" minOccurs="0" name="Target" type="tns:dataLinkedElement"/>
+      <xs:element ref="ns1:Frequency" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="linkProvider">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="Name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RelationshipType">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="Name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dataLinkedElement">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="Type" type="tns:dataLinkObjectType"/>
+      <xs:element form="qualified" minOccurs="0" name="Identifier" type="tns:dataLinkIdentifier"/>
+      <xs:element form="qualified" minOccurs="0" name="Title" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Publisher" type="ns1:objectPublisher"/>
+      <xs:element ref="ns1:ImageURL" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dataLinkObjectType">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="Name" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="SubType" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dataLinkIdentifier">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="ID" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="IDScheme" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="IDURL" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

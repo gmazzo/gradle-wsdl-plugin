@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:tns="https://www.europepmc.org/data" xmlns:epmc="https://www.europepmc.org/data" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:slx="http://www.scholix.org" elementFormDefault="qualified" targetNamespace="https://www.europepmc.org/data" version="1.0">
+  <xs:import schemaLocation="https://www.ebi.ac.uk:443/europepmc/webservices/soap?xsd=2" namespace="http://www.scholix.org"/>
+  <xs:element name="Frequency" type="xs:int"/>
+  <xs:element name="ImageURL" type="xs:string"/>
+  <xs:complexType name="dataLinks">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Category" maxOccurs="unbounded" type="tns:Category"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Category">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" type="xs:string"/>
+      <xs:element minOccurs="0" name="NameLong" type="xs:string"/>
+      <xs:element minOccurs="0" name="Tags">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Tag" maxOccurs="unbounded" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="CategoryLinkCount" type="xs:int"/>
+      <xs:element minOccurs="0" name="Section" maxOccurs="unbounded" type="tns:Section"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Section">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ObtainedBy" type="xs:string"/>
+      <xs:element minOccurs="0" name="Tags">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Tag" maxOccurs="unbounded" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="SectionLinkCount" type="xs:int"/>
+      <xs:element minOccurs="0" name="CollectionURL" type="xs:string"/>
+      <xs:element minOccurs="0" name="Linklist" type="slx:Linklist"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="objectPublisher">
+    <xs:sequence>
+      <xs:element ref="slx:Name" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
