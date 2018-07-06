@@ -1,6 +1,6 @@
 package com.github.gmazzo.gradle.plugins
 
-import org.gradle.api.file.ConfigurableFileTree
+import org.gradle.api.file.FileTree
 import org.gradle.api.internal.file.FileOperations
 import org.gradle.internal.reflect.Instantiator
 
@@ -8,7 +8,7 @@ class WSDLSourceSet extends DefaultWSDLEntryConfigContainer {
     final String name
     final FileOperations fileOperations
 
-    ConfigurableFileTree from
+    FileTree from
 
     File outputDir
 
@@ -20,7 +20,7 @@ class WSDLSourceSet extends DefaultWSDLEntryConfigContainer {
     }
 
     void from(Object from) {
-        this.from = fileOperations.fileTree(from)
+        this.from += fileOperations.fileTree(from)
     }
 
     void outputDir(Object dest) {
