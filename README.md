@@ -30,3 +30,20 @@ wsdl {
     }
 }
 ```
+
+## Downloading WSDLs from remote URLs
+The `com.github.gmazzo.gradle.plugins.tasks.DownloadWSDL` task allows you to download a WSDL to a local folder, and all its referenced `XSD` schemas.
+
+Example:
+````groovy
+import com.github.gmazzo.gradle.plugins.tasks.DownloadWSDL
+
+task downloadWsdls(type: DownloadWSDL) { self ->
+    into file('src/main/wsdl') // where to store the downloaded files
+    from 'http://www.dneonline.com/calculator.asmx?wsdl' // just an URL, the local name will be picked from it
+    from 'europepmc', 'https://www.ebi.ac.uk:443/europepmc/webservices/soap?wsdl' // local name and URL
+    from 'countries', 'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL'
+
+    wsImport.dependsOn self // optional, links this task to the build graph, forcing it to run before `wsImport`
+}
+````
