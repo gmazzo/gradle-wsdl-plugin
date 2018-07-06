@@ -6,8 +6,19 @@ import com.github.gmazzo.gradle.plugins.tasks.DownloadWSDL
 task downloadWsdls(type: DownloadWSDL) { self ->
     into file('src/main/wsdl')
     from 'http://www.dneonline.com/calculator.asmx?wsdl'
-    from 'https://www.ebi.ac.uk:443/europepmc/webservices/soap?wsdl'
+    from 'europepmc', 'https://www.ebi.ac.uk:443/europepmc/webservices/soap?wsdl'
     from 'countries', 'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL'
 
     wsImport.dependsOn self
+}
+
+wsdl {
+    main {
+        all {
+            argument '-encoding', 'UTF-8'
+        }
+        europepmc {
+            forcePackage 'uk.ac.ebi.europepmc'
+        }
+    }
 }

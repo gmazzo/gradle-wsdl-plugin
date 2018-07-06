@@ -1,11 +1,14 @@
 package com.github.gmazzo.gradle.plugins
 
-class WSDLPluginExtension {
+import org.gradle.api.internal.file.FileOperations
+import org.gradle.internal.reflect.Instantiator
+
+class WSDLPluginExtension extends DefaultWSDLSourceSetContainer {
 
     String jaxwsToolsDependencies = 'com.sun.xml.ws:jaxws-tools:2.2.10'
 
-    void jaxwsToolsDependencies(String jaxwsToolsDependencies) {
-        this.jaxwsToolsDependencies = jaxwsToolsDependencies
+    WSDLPluginExtension(Instantiator instantiator, FileOperations fileOperations) {
+        super(instantiator, fileOperations)
     }
 
 }
