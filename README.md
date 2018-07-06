@@ -39,7 +39,7 @@ Example:
 import com.github.gmazzo.gradle.plugins.tasks.DownloadWSDL
 
 task downloadWsdls(type: DownloadWSDL) { self ->
-    into file('src/main/wsdl') // where to store the downloaded files
+    into 'src/main/wsdl' // where to store the downloaded files
     from 'http://www.dneonline.com/calculator.asmx?wsdl' // just an URL, the local name will be picked from it
     from 'europepmc', 'https://www.ebi.ac.uk:443/europepmc/webservices/soap?wsdl' // local name and URL
     from 'countries', 'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL'

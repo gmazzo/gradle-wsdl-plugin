@@ -1,11 +1,15 @@
 package com.github.gmazzo.gradle.plugins.tasks
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
+import javax.inject.Inject
+
 class DownloadWSDL extends DefaultTask {
+    private final FileOperations fileOperations
 
     @Input
     Map<URL, String> froms = new HashMap<>()
@@ -13,24 +17,22 @@ class DownloadWSDL extends DefaultTask {
     @OutputDirectory
     File into
 
-    void from(String url) {
-        from(new URL(url))
+    @Inject
+    DownloadWSDL(FileOperations fileOperations) {
+        this.fileOperations = fileOperations
     }
 
-    void from(URL url) {
-        from(new File(url.path).name.replaceFirst('\\.[^.]+$', ''), url)
+    void from(Object url) {
+        from(null, url)
     }
 
-    void from(String name, String url) {
-        from(name, new URL(url))
+    void from(String name, Object url) {
+        def u = fileOperations.uri(url).toURL()
+        froms[u] = name ?: new File(u.path).name.replaceFirst('\\.[^.]+$', '')
     }
 
-    void from(String name, URL url) {
-        froms[url] = name
-    }
-
-    void into(File into) {
-        this.into = into
+    void into(Object path) {
+        this.into = fileOperations.file(path)
     }
 
     @TaskAction
